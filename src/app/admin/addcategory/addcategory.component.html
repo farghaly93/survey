@@ -1,0 +1,118 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+  
+  </head>
+  <app-header></app-header>
+  <body style="margin-top:170px;">
+  <div id="wrapper">
+
+      <app-adminsidebar></app-adminsidebar>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
+<div style="margin-top:30px" class="container">
+  <h3>{{category}}</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="section">
+      <h3 class="address">Category name and number of questions:</h3>
+      <input (change)="addinputs(n, noq)" class="catform" ngModel #n="ngModel" [ngModel]="name" placeholder="name" type="text" name="name">
+      <input class="catform" ngModel #noq = "ngModel" placeholder="number of questions" type="number" name="noq">
+      <button (click)="addinputs(n, noq)">Put questions</button>
+      <h3 *ngIf="loading">Loading...</h3>
+      <form *ngIf="qs.length > 0" ngForm #f="ngForm" (submit)="addcategory(f)"> 
+        <div *ngFor="let q of qs;let i=index">
+              <h3 class="col-md-9">{{'question'+(i+1)}}</h3>
+              <p class="col-md-9">Question:</p>
+              <input class="catform" ngModel type="text" [ngModel]="q" [placeholder]="'question'+1" [name]="'q'+(i+1)">
+              <select class="catform"  (change)="noc($event.target.value, i)" ngModel [name]="'type'+(i+1)"><option *ngFor="let c of ['choose','text']">{{c}}</option></select>
+              <select class="catform" *ngIf="choose.includes(i)" (change)="choicesInputs(i,$event.target.value)" ><option *ngFor="let n of [1,2,3,4,5,6]">{{n}}</option></select><br>
+              <p class="col-md-9">Choices:</p>
+              <input class="catform" ngModel *ngFor="let ch of chs[i];let y=index"  type="text" [ngModel]="![0,1,2,3,4,5,6].includes(ch)?ch:null" [placeholder]="'Choice'+(y+1)" [name]="'ch'+(i+1)+'/'+(y+1)" required>
+
+          </div>
+          <div class="container">
+              <div class="row">
+               <a (click)="more()" class="a-btn-slide-text col-md-3">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <a (click)="less()" class="a-btn-slide-text col-md-3">
+                   <i class="fa fa-minus"></i>
+                </a>
+              </div>
+          </div>
+          <div *ngIf="mess" class="alert alert-warning">
+              <strong>Success!</strong> {{mess}}.
+          </div>
+          <button class="btn btn-primary">Add Category</button>
+      </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="section">
+        <h3>Add Subsections</h3>
+        <form ngForm #s="ngForm" (submit)="addsubsections(s)">
+          <input class="catform" *ngFor="let s of sections;let ss=index" type="text" ngModel [name]="'section'+(ss+1)"  [ngModel] = "sections[ss]" [placeholder]="'section'+(ss+1)" required/>
+          <div>
+              <div class="container">
+                  <div class="row">
+                   <a (click)="add()" class="a-btn-slide-text col-md-3">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <a (click)="remove()" class="a-btn-slide-text col-md-3">
+                       <i class="fa fa-minus"></i>
+                    </a>
+                  </div>
+              </div>
+              <div *ngIf="sdone" class="alert alert-warning">
+                  <strong>Success!</strong> Sections added.
+              </div>
+          <button class="btn btn-primary">Add sections</button>
+          </div>
+        </form>
+      </div>
+      <div class="section">
+        <h3>Add specifications</h3>
+        <form ngForm #sp="ngForm" (submit)="addspecs(sp)">
+          <input class="catform" ngModel *ngFor="let spec of specs;let sp=index" type="text" [ngModel]="specs[sp]"  [placeholder]="'spec'+(sp+1)" [name]="'spec'+(sp+1)" required/>
+          <div>
+              <div class="container">
+                  <div class="row">
+                   <a (click)="addspec()" class="a-btn-slide-text col-md-3">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <a (click)="removespec()" class="a-btn-slide-text col-md-3">
+                       <i class="fa fa-minus"></i>
+                    </a>
+                  </div>
+              </div>
+              <div *ngIf="spdone" class="alert alert-warning">
+                  <strong>Status!</strong> specifications added.
+              </div>
+          <button class="btn btn-primary">Add specifications</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</body>

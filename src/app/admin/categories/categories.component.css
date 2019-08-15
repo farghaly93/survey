@@ -1,0 +1,13 @@
+.catbtn {
+    margin:1px;
+    background-color: #f5af5f;
+    color:#3f2006;
+    font-size: 15px;
+}
+.card {
+    margin-right:5px;
+    border-radius: 5px
+}
+.card-img-top {
+    height:200px;
+}

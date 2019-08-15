@@ -1,0 +1,77 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  
+    <title>SB Admin - Dashboard</title>
+  
+    <!-- Custom fonts for this template-->
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  
+    <!-- Page level plugin CSS-->
+    <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  
+    <!-- Custom styles for this template-->
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+  
+  </head>
+  <app-header></app-header>
+  <body style="margin-top:170px;">
+  <div id="wrapper">
+
+      <app-adminsidebar></app-adminsidebar>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Overview</li>
+        </ol>
+<div style="background-color: rgb(246, 247, 250);margin-top:30px;padding:20px" class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <img width="100%" height="300px" style="border-radius: 5px" class="img" [src]="imgPreview || image || 'assets/imgs/placeholder.png'"/>
+      </div>
+      <div class="col-md-12">
+        <h2 style="color:rgb(86, 95, 95)">Add new adversment </h2>
+        <form style="margin:30px;" [formGroup]="form" (submit)="addAd()"> 
+          <div style="margin:20px;"> 
+          <h5 style="color:rgb(96, 99, 100)">Name</h5>
+            <input class="form-control" *ngIf="!name" formControlName="name" placeholder="Store name" required type="text"/>
+          </div>
+            <h3 style="color:brown" *ngIf="name">{{name}}</h3>
+            <p style="color:rgb(124, 35, 24)" *ngIf="form.get('name').errors&&form.get('name').touched">Invalid name</p>
+            <div style="margin:20px;">          <h5 style="color:rgb(96, 99, 100)">Description</h5>
+            <textarea class="form-control" formControlName="desc" placeholder="describe the store"></textarea>
+            <p style="color:rgb(124, 35, 24)" *ngIf="form.get('desc').errors&&form.get('desc').touched">Invalid desciption</p>
+            </div>
+            <input (change)="onPhotoUpload($event)" required #f style="visibility:hidden"  type="file" >
+            <div style="margin:20px;">
+            <h5 style="color:rgb(96, 99, 100)">Upload Image</h5>
+            <p style="color:rgb(124, 35, 24)" *ngIf="form.get('image').errors?.mimeTypeInvalid">Invalid image</p>
+            <p *ngIf="form.get('image').pending">Loading image</p>
+            </div>
+            <img height="70px" src="assets/imgs/upload.png" (click)="f.click()"/>
+            <h3 *ngIf="loading">Uploading...</h3>
+            <div *ngIf="mess" class="alert alert-warning">
+                <strong>Status!</strong> {{mess}}.
+              </div>
+          <button class="btn btn-primary">Add Store</button>
+        </form>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+</div>
+</div>
+</body>
+  

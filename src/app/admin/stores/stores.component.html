@@ -1,0 +1,106 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+
+    <!-- Page level plugin CSS-->
+
+    <!-- Custom styles for this template-->
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+
+</head>
+<app-header></app-header>
+  <body style="margin-top:170px;">
+      <div id="wrapper">
+    
+          <app-adminsidebar></app-adminsidebar>
+    
+        <div id="content-wrapper">
+    
+          <div class="container-fluid">
+    
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Overview</li>
+            </ol>
+<div class="container">
+    <section style="width:50%;text-align: center">
+      <div class="search row">
+        <i style="cursor:pointer" (click)="getStores()" class="fa fa-times col-md-1"></i>
+        <input type="text" ngModel #q="ngModel" class="form-control col-md-9" placeholder="search store"/>
+        <i style="cursor:pointer" (click)="search(q)" class="fa fa-search col-md-2"></i>
+      </div>
+    </section>
+    <section>
+        <h3 style="text-align:center" *ngIf="loading">Loading..</h3>
+        <div *ngIf="mess" class="alert alert-warning">
+            <strong>status:</strong> {{mess}}
+        </div>
+        <div style="margin-top:30px" class="container">
+          <div class="row">
+            <!-- Card -->
+          <div *ngFor="let store of stores" class="col-md-3">
+            <div class="card">
+            <!-- Card image -->
+            <img class="card-img-top" [src]="store.image" alt="Card image cap">
+          
+            <!-- Card content -->
+            <div class="card-body">
+          
+              <!-- Title -->
+              <h4 atyle="color:#3d474e" class="card-title"><a><h3>{{store.name | ellipsis: 11}}</h3></a></h4>
+              <!-- Text -->
+              <!-- Button -->
+              <div class="row">
+                  <a class="storebtn col-md-12" [routerLink]="['../../addstore/'+store.category+'/'+store.name]">edit</a>
+                  <a class="storebtn col-md-12" [routerLink]="['../../addbranch/'+store.category+'/'+store.name]">Add new Branchs</a>
+                  <a style="cursor:pointer;color:rgb(168, 12, 12)" class="storebtn col-md-12"(click)="openModal(template, store._id)" >remove</a>
+              </div>
+          
+            </div>
+          
+          </div>
+          <!-- Card -->
+          </div>
+          </div>
+          </div>
+    </section>
+  </div>
+  </div>
+  </div>
+  </div>
+  </body>
+  
+
+
+
+<!-- Button to Open the Modal -->
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirm your password</h4>
+        <button>
+            <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div style="color:firebrick" class="modal-body">
+        <strong style="color:rgb(199, 174, 62)">admin authority only:</strong>
+        <input type="password" #pass class="form-control"/>
+        
+    </div>
+    <div style="color:rgb(212, 55, 55)" class="modal-footer">
+        <button (click)="remove(pass)" class="btn btn-primary">Confirm</button>
+            {{modalmess}}
+        <button  class="btn btn-danger" (click)="modalRef.hide()">close</button>
+    </div>
+</ng-template>

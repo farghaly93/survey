@@ -1,0 +1,110 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+
+</head>
+<app-header></app-header>
+  <body style="margin-top:170px;">
+      <div id="wrapper">
+    
+          <app-adminsidebar></app-adminsidebar>
+    
+        <div id="content-wrapper">
+    
+          <div class="container-fluid">
+    
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Overview</li>
+            </ol>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<h2>Advertisments</h2>
+    <div class="section">
+        <div class="table-responsive">
+
+                <!--Table-->
+                <table class="table">
+                    
+                  <!--Table head-->
+                  <thead>
+                    <tr>
+                        <th>image</th>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>edit</th>
+                        <th>delete</th>
+                    </tr>
+                  </thead>
+                  <!--Table head-->
+              
+                  <!--Table body-->
+                  <tbody>
+                    <tr *ngFor="let ad of ads" class="tr">
+                            <td style="color:#2c3236"><img height="140px" [src]="ad.image"></td>
+                            <td style="color:#6e7275">{{ad.name  | uppercase}}</td>
+                            <td style="color:#6e7275">{{ad.desc}}</td>
+                            <td>
+                                <button style="background-color:#336a77" type="button"  [routerLink]="['../addAd/'+ad.name]" class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-pencil">Edit
+                                    </i>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button"  (click)="openModal(template, ad._id)" class="btn btn-sm btn-danger">
+                                    <i class="glyphicon glyphicon-remove-circle">Delete
+                                    </i>
+                                </button>
+                            </td>
+                        </tr>
+                  </tbody>
+                  <!--Table body-->
+              
+                </table>
+                <!--Table-->
+              
+              </div>
+
+
+    </div>
+</div>
+  </div>
+</div>
+</body>
+            
+
+<ng-template #template>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Confirm your password</h4>
+            <button>
+                <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div style="color:firebrick" class="modal-body">
+            <strong style="color:rgb(199, 174, 62)">admin authority only:</strong>
+            <input type="password" #pass class="form-control"/>
+            
+        </div>
+        <div style="color:rgb(212, 55, 55)" class="modal-footer">
+            <button (click)="remove(pass)" class="btn btn-primary">Confirm</button>
+                {{modalmess}}
+            <button  class="btn btn-danger" (click)="modalRef.hide()">close</button>
+        </div>
+    </ng-template>

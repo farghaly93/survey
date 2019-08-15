@@ -1,0 +1,68 @@
+
+  .navbar-nav li {
+    color: #fff;
+  }
+  .placeholder {
+    height: 150;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /**background-image: url('../../assets/img/loading2.gif');**/
+  }
+  .checkbox-filter .input-checkbox label {
+    font-weight: bold;
+    color: rgb(110, 109, 109);
+    font-size: 15px;
+  }
+  .aside label {
+    font-size: 18px;
+    color: rgb(31, 29, 29);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  agm-map {
+    height: 300px;
+  }
+  .flip {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .pull {
+    float: right;
+  }
+  .ol {
+    margin: 20px;
+  }
+  .liactive {
+    background-color: rgb(31, 40, 83);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  

@@ -1,0 +1,158 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+
+</head>
+<app-header></app-header>
+<body style="margin-top:170px;">
+<div id="wrapper">
+
+    <app-adminsidebar></app-adminsidebar>
+
+<div id="content-wrapper">
+
+    <div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+        <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Overview</li>
+    </ol>
+
+    <div style="background-color:#e8f2f8" class="container">
+    <!-- BREADCRUMB -->
+        <div style="margin-top:40px" id="breadcrumb" class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="breadcrumb-tree">
+                            <li *ngFor="let categ of categories" style="font-size:20px;cursor:pointer" (click)="chooseCat(categ.name)">{{categ.name}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /BREADCRUMB -->
+        <div style="margin-top:30px;" class="section">
+            <h4>Search filter..</h4>
+            <div class="row">
+                <div class="col-md-3" *ngFor="let section of sectionsnames;let s=index">
+                        <input autocomplete="off" [attr.list]="'list'+s" (change)="updateChart(d,s)" ngModel #d="ngModel" [name]="'section'+(s+1)" style="margin:20px" [placeholder]="section" class="sec" required/>
+                        <datalist [id]="'list'+s">
+                        <option *ngFor="let list of sectionsLists[s]">{{list}}</option>
+                        </datalist>
+                </div>
+            </div>
+            <div *ngIf="notfound"><h2>Not found...!!</h2></div>
+            
+        </div>
+        <div class="section">
+            <div class="table-responsive">
+
+                    <!--Table-->
+                    <table class="table">
+                        
+                      <!--Table head-->
+                      <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th *ngFor="let section of sectionsnames">{{section}}</th>
+                            <th>edit</th>
+                            <th>delete</th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+                  
+                      <!--Table body-->
+                      <tbody>
+                        <tr *ngFor="let store of stores" class="tr" [style.background-color]="!store.image[0]?'yellow':store.status==='new'?'#69db81':'#fff'">
+                                <td style="font-size:12px;color:#2c3236">{{store.store | uppercase}}</td>
+                                <td style="color:#6e7275" *ngFor="let sec of sectionsnames;let s=index">{{store['section'+(s+1)]}}</td>
+                                <td>
+                                    <button style="background-color:#336a77" type="button"  [routerLink]="['../addbranch/'+store.category+'/'+store.store+'/'+store._id+'/'+store.status+'/'+store.image[0]?.name]" class="btn btn-sm btn-danger">
+                                        <i class="glyphicon glyphicon-pencil">
+                                        </i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" (click)="openModal(template, store)" class="btn btn-sm btn-danger">
+                                        <i class="glyphico  glyphicon-remove-circle">
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                      </tbody>
+                      <!--Table body-->
+                  
+                    </table>
+                    <!--Table-->
+                  
+                  </div>
+        </div>
+        <div colass="section">
+                <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>
+                                    Total Count <span class="label label-info">{{storescount}}</span></h6>
+                            </div>
+                            <div class="col-md-6">
+                                    <nav aria-label="Page navigation example">
+                                            <ul class=" pull-right pagination pg-blue">
+                                                <li (click)="commingPage('previous')" class="page-item"><a class="page-link">Previous</a></li>
+                                                <li class="page-item"><a class="page-link">{{currentpage+1}}</a></li>
+                                                <li class="page-item"><a class="page-link">of {{nop}}</a></li>
+                                                <li (click)="commingPage('next')" class="page-item"><a class="page-link">Next</a></li>
+                                                
+                                            </ul>
+                                    </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+        
+
+
+<ng-template #template>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Confirm your password</h4>
+            <button>
+                <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div style="color:firebrick" class="modal-body">
+            <strong style="color:rgb(199, 174, 62)">admin authority only:</strong>
+            <input type="password" #pass class="form-control"/>
+            
+        </div>
+        <div style="color:rgb(212, 55, 55)" class="modal-footer">
+            <button (click)="remove(pass)" class="btn btn-primary">Confirm</button>
+                {{modalmess}}
+            <button  class="btn btn-danger" (click)="modalRef.hide()">close</button>
+        </div>
+    </ng-template>

@@ -1,0 +1,36 @@
+<form ngForm #s="ngForm" (submit)="search(s)">
+  <input style="margin-top:20px;width:400px;" type="text" class="form-control" ngModel name="query">
+  <button class="btn btn-primary">Search</button>
+</form>
+<h2>{{mess}}</h2>
+<div class="row">
+    <!-- Grid column -->
+    <div *ngFor="let item of items"  class="col-lg-4 col-md-4">
+        <p class="card-text" [routerLink]="item">{{item}}</p>
+    </div>
+    <div *ngFor="let store of stores"  class="col-lg-4 col-md-4">
+        <!--Panel-->
+        <div class="card card-body">
+          <h4 class="card-title"></h4>
+          <img style="cursor:pointer" height="220px" [src]="store.image"/>
+          <p class="card-text" [routerLink]="[back+'survey/'+cat+'/'+store.name+'/'+surveysections]">{{store.name}}</p>
+          <div class="flex-row">
+            <a class="card-link">Card link</a>
+            <a class="card-link">Another link</a>
+          </div>
+        </div>
+        <span *ngFor="let s of [1,2,3,4,5,6,7]" class="fa fa-star" [ngClass]="store.rating>=s?'checked':''"></span>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <!--Panel-->
+        <div class="card card-body">
+          <h4 class="card-title">Add new store</h4>
+          <img style="cursor:pointer" height="220px" src="assets/imgs/addnew.png"/>
+          <p class="card-text">add new store if this store isn't exist it will be removed..</p>
+          <div class="flex-row">
+            <input ngModel type="text" #add="ngModel" class="card-link"/>
+            <button (click)="addnew(add)" class="card-link">Add</button>
+          </div>
+        </div>
+        </div>
+    </div>

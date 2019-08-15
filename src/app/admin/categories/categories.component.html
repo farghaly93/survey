@@ -1,0 +1,81 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+
+</head>
+<app-header></app-header>
+  <body style="margin-top:170px;">
+      <div id="wrapper">
+    
+          <app-adminsidebar></app-adminsidebar>
+    
+        <div id="content-wrapper">
+    
+          <div class="container-fluid">
+    
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Overview</li>
+            </ol>
+ <h3 style="text-align:center" *ngIf="loading">Loading..</h3>
+  <h3 class="alert alert-warning" *ngIf="mess">{{mess}}</h3>
+  <div style="margin-top:30px" class="container">
+    <div class="row">
+      <!-- Card -->
+      <div *ngFor="let category of categories" class="col-md-4">
+          <div class="card">
+    
+              <!-- Card image -->
+              <img class="card-img-top" src="assets/imgs/category.png" alt="Card image cap">
+            
+              <!-- Card content -->
+              <div class="card-body">
+            
+                <!-- Title -->
+                <h4 class="card-title"><a><h3>{{category.name}}</h3></a></h4>
+                <!-- Text -->
+                <!-- Button -->
+                <button class="catbtn btn-primary" [routerLink]="['../addstore/'+category.name]">add store</button>
+                <button class="catbtn btn-primary" [routerLink]="['../addcategory/'+category.name]">edit</button>
+                <button class="catbtn btn-primary" [routerLink]="['../stores/'+category.name]">Stores</button>
+                <button class="catbtn btn-primary" (click)="openModal(template, category._id)">remove</button>
+            
+              </div>
+            
+            </div>
+      </div>
+    <!-- Card -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+
+    <ng-template #template>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Confirm your password</h4>
+            <button>
+                <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div style="color:firebrick" class="modal-body">
+            <strong style="color:rgb(199, 174, 62)">admin authority only:</strong>
+            <input type="password" #pass class="form-control"/>
+            
+        </div>
+        <div style="color:rgb(212, 55, 55)" class="modal-footer">
+            <button (click)="remove(pass)" class="btn btn-primary">Confirm</button>
+                {{modalmess}}
+            <button  class="btn btn-danger" (click)="modalRef.hide()">close</button>
+        </div>
+    </ng-template>

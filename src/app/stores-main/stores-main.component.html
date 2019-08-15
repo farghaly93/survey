@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+	<link href="assets/css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+    <link rel="shortcut icon" href="assets/imgs/logo.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<app-header></app-header>
+
+<body style="margin-top:170px">
+
+
+
+
+
+
+
+
+
+
+
+	<section id="slider"><!--slider-->
+		<img style="margin-left: 300px" *ngIf="mainloading" height="170px;" src="assets/imgs/loading.gif"/> 
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<ngb-carousel showNavigationArrows="false" interval="2500" pauseOnHover="true">
+						<ng-template *ngFor="let img of images" ngbSlide>
+							<img width="100%" [src]="img" alt="Random first slide">
+							<div class="carousel-caption">
+							<h3>First slide label</h3>
+							<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+							</div>
+						</ng-template>
+					</ngb-carousel>
+				</div>
+			</div>
+		</div>
+	</section><!--/slider-->
+    
+    
+    <section *ngIf="locationfilter==='sections'">
+        <form #f="ngForm" >
+            <div class="container">
+                    <div [ngClass]="fliplang('flip')+' row'">
+                        <select (change)="filterbystore(na)" #na="ngModel" style="margin:10px;" ngModel [name]="'store'" class="mdb-select md-form col">
+                            <option value="" disabled selected>{{filterobject['store'] || ('store name' | translate: lang)}}</option>
+                            <option [value]="str.name" *ngFor="let str of storenames">{{str.name | translate: lang}}</option>
+                        </select>
+                        <select style="margin:10px;" *ngFor="let sec of sectionsnames;let n=index" (change)="updateChart(d,n)" ngModel #d="ngModel" [name]="'section'+(n+1)"  class="mdb-select md-form col">
+                            <option value="" disabled selected>{{'section'+(n+1) | translate: lang}}</option>
+                            <option [value]="list" *ngFor="let list of sectionsLists[n]">{{list | translate: lang}}</option>
+                        </select>
+                    </div>
+                </div>
+        </form>
+	</section>
+	
+
+
+
+    
+
+
+
+
+	<section style="margin-top:40px;">
+		<div class="container">
+			<div [ngClass]="fliplang('flip')+' row'">
+
+
+
+
+
+				<div class="col-sm-3">
+					<div class="left-sidebar">
+						<h2>{{'Filters' | translate: lang}}</h2>
+						<img style="margin-left: 250px" *ngIf="filterloading" height="170px;" src="assets/imgs/loading.gif"/>
+						<div><!--category-productsr-->
+                            <form (change)="filter(f)" #f="ngForm" >
+                                <div style="overflow:hidden" *ngFor="let spec of specsvalues; let i=index">
+									<label [ngClass]="fliplang('pull')" style="font-size:20px">{{specs[i] | translate: lang}}</label>
+									<div class="col-md-12 scrollbar" style="margin-top:30px;height:300px;overflow-y: scroll">
+										<div *ngFor="let value of spec" class="checkbox-filter">
+											<div [ngClass]="fliplang('flip')+ ' input-checkbox'">
+												<input ngModel [name]="value._id+'/spec'+(i+1)" type="checkbox" [id]="value._id">
+												<label [ngClass]="fliplang('flip')" [for]="value._id">
+													<span></span>
+													{{value._id | translate: lang}}
+													<small>({{value.count}})</small>
+												</label>
+											</div>
+										</div>
+									</div>
+                                </div>
+                            </form>
+						</div><!--/category-products-->
+					
+						<div class="brands_products"><!--brands_products-->
+							<h2>{{'Brands' | translate: lang}}</h2>
+							<div style="height:200px;overflow-y: scroll" class="row scroll brands-name">
+								<div class="col-md-12" *ngFor="let store of storenames"><a [ngClass]="fliplang('pull')" href="#">{{store.name | translate: lang}}</a></div>
+							</div>
+						</div><!--/brands_products-->
+						
+						<div class="shipping text-center"><!--shipping-->
+							<img src="assets/images/home/shipping.jpg" alt="" />
+						</div><!--/shipping-->
+					
+					</div>
+                </div>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				
+				<div class="col-sm-9 padding-right">
+					<div style="margin-bottom:20px;padding:14px;background-color: rgb(241, 245, 248)" [ngClass]="fliplang('flip')+' row'">
+						<div class="col-md-3">
+							{{'show' | translate: lang}}
+								<select class="mdb-select md-form col" ngModel #p="ngModel" (change)="changepagelimit(p)">
+									<option value="" disabled selected>6</option>
+									<option [value]="p" *ngFor="let p of pageSizeOptions">{{p | translate: lang}}</option>
+								</select>
+						</div>
+						<div class="col-md-3">
+							{{'locate by' | translate: lang}}
+								<select class="mdb-select md-form col" ngModel #lf="ngModel" (change)="changelocationfilter(lf)">
+									<option value="" disabled selected>sections</option>
+									<option value="map">{{'map' | translate: lang}}</option>
+									<option value="sections">{{'sections' | translate: lang}}</option>
+								</select>
+						</div>
+						<div class="col-md-3">
+							{{'add new brand' | translate: lang}}
+							<div  [ngClass]="fliplang('flip')+' row'">
+								<input class="col-md-8" type="text" [placeholder]="'new store name' | translate: lang" ngModel #n="ngModel"/>
+								<button style="background-color: rgb(134, 134, 160);color:cornsilk" class="btn btn-default col-md-4" (click)="addnewbrand(n)">{{'Add' | translate: lang}}</button>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+				
+
+
+
+
+					<section *ngIf="locationfilter==='map'">
+						<agm-map style="width:auto" [usePanning]='true' [zoom]="5" [latitude]="lat" [longitude]="lng" (mapClick)="filterbylocation($event)">
+							<agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+						</agm-map>
+					</section>
+
+
+					<img style="margin-left:250px" *ngIf="isLoading" height="250px;" src="assets/imgs/loading.gif"/> 
+					
+					<h2 class="title text-center">{{'Features Items' | translate: lang}}</h2>
+					<div class="features_items row"><!--features_items-->
+						<div [ngClass]="fliplang('pull')" *ngFor="let store of stores;let st=index" class="col-md-4">
+							<div class="product-image-wrapper">
+								<div class="single-products">
+										<div class="productinfo text-center">
+                                            <img height="170px" [src]="store.image||'assets/imgs/food.png'" alt="">
+											<h2>{{store.store || store.name | translate: lang}}</h2>
+											<p *ngFor="let sec of sectionsnames;let s=index">{{store['section'+(s+1)] | translate: lang}}</p>
+											<a *ngIf="store.store" (click)="gotosurvey(store.store,'specified', st)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>goto store details</a>
+											<a *ngIf="store.name" (click)="gotosurvey(store.store,'filter', st)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>goto store details</a>
+										</div>
+										<div class="product-overlay">
+											<div class="overlay-content">
+                                                <p>PHONE: {{store['phone'] | translate: lang}}</p>
+												<h2>{{store.store || store.name | translate: lang}}</h2>
+												<p *ngFor="let spec of specs;let sp=index">{{spec+': '+store['spec'+(sp+1)] | translate: lang}}</p>
+												<a *ngIf="store.store" (click)="gotosurvey(store.store,'specified', st)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>goto store details</a>
+												<a *ngIf="store.name" (click)="gotosurvey(store.store,'filter', st)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>goto store details</a>
+											</div>
+										</div>
+								</div>
+								<div class="choose">
+									<ul class="nav nav-pills">
+                                    </ul>
+                                    <ul [ngClass]="fliplang('flip')">
+                                        <i style="color:darkorange" *ngFor="let star of [1,2,3,4,5]" [ngClass]="store.rating>=star?'fa fa-star':'fa fa-star-o'"></i>
+                                    </ul>
+								</div>
+							</div>
+						</div>  
+					</div><!--features_items-->
+
+
+
+
+
+
+
+					<nav aria-label="Pagination alignment">
+						<ul class="row justify-content-center">
+						  <li (click)="commingPage('previous')" class="column page-item "><a style="cursor:pointer;color:rgb(255, 255, 255);background-color:rgb(65, 81, 172)" class="page-link">Prev</a></li>
+						  <li class="column page-item"><a class="page-link">{{currentpage+1}}</a></li>
+						  <li class="column page-item"><a class="page-link">of</a></li>
+						  <li class="column page-item"><a class="page-link">{{(storescount/pagelimit) | ceil}}</a></li>
+						  <li (click)="commingPage('next')" class="column page-item"><a style="cursor:pointer;color:rgb(255, 255, 255);background-color:rgb(65, 81, 172)" class="page-link">Next</a></li>
+						  <li class="column page-item"><a class="page-link">{{storescount+' stores'}}</a></li>
+						</ul>
+					  </nav>
+					  
+
+
+
+
+
+
+
+
+					<div style="margin-top:20px;" class="category-tab"><!--category-tab-->
+						<div class="col-sm-12">
+							<ul style="width:auto;overflow-x: scroll" [ngClass]="fliplang('flip')+' nav nav-pills'">
+								<li style="padding:12px;cursor:pointer;" [class]="sec===ctc?'liactive':''" *ngFor="let sec of sectionsLists[0];"><a (click)="topsec1(sec)">{{sec | translate: lang}}</a></li>
+							</ul>
+						</div>
+						<div class="tab-content">
+								<img style="margin-left: 250px" *ngIf="tabloading" height="170px;" src="assets/imgs/loading.gif"/>
+							<div [ngClass]="fliplang('pull')+ 'row'" id="tshirt" >
+								<div *ngFor="let store of topsec1stores" [ngClass]="fliplang('pull')+' col-sm-2'">
+									<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img (click)="getbranches(store.name)" style="cursor:pointer;" height="120px" [src]="store.image" alt="" />
+													<h2 style="height:25px;overflow: hidden;">{{store.name | translate: lang}}</h2>
+													<i style="color:darkorange" *ngFor="let star of [1,2,3,4,5]" [ngClass]="(store.rate>=star?'fa fa-star':'fa fa-star-o')+' '+fliplang('pull')"></i>
+													<a *ngIf="store.name" (click)="gotosurvey(store.name,'filter')" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>{{'goto store details' | translate: lang}}</a>
+												</div>
+												
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div><!--/category-tab-->
+                    
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div style="background-color:rgb(245, 244, 243);margin-top:50px" class="recommended_items"><!--recommended_items-->
+						<h1 class="title text-center">{{'Top rated' | translate: lang}}</h1><br>
+						<img style="margin-left: 250px" *ngIf="toploading" height="170px;" src="assets/imgs/loading.gif"/>
+							<div class="carousel-inner">
+								<div class="row item active">	
+									<div *ngFor="let top of topstores" [ngClass]="fliplang('pull') +' col-sm-3'">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img style="cursor: pointer" (click)="getbranches(top.name)" height="120px" [src]="top.image" alt="" />
+													<h2 style="height:25px;overflow: hidden;">{{top.name | translate: lang}}</h2>
+													<i  style="color:darkorange" *ngFor="let star of [1,2,3,4,5]" [ngClass]="(top.rate>=star?'fa fa-star':'fa fa-star-o')+' '+fliplang('pull')"></i>
+													<a (click)="gotosurvey(top.name,'filter')" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>{{'goto store details' | translate: lang}}</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>		
+								</div>
+							</div>
+                    </div><!--/recommended_items-->
+                    
+
+
+
+
+
+
+                    <div style="background-color:rgb(245, 244, 243);margin:20px" class="recommended_items"><!--recommended_items-->
+						<h1 class="title text-center">{{'Most visited' | translate: lang}}</h1><br>
+						<img style="margin-left: 250px" *ngIf="mostloading" height="170px;" src="assets/imgs/loading.gif"/>
+							<div class="carousel-inner">
+								<div class="row item active">	
+									<div *ngFor="let most of mostvisited;let g=index" [ngClass]="fliplang('pull')+' col-sm-3'">
+										<div class="product-image-wrapper">
+											<div class="single-products">
+												<div class="productinfo text-center">
+													<img (click)="getbranches(most.name)" height="120px;" [src]="most.image" alt="" />
+													<h2 style="height:25px;overflow: hidden;">{{most.name | translate: lang}}</h2>
+													<a (click)="gotosurvey(most.name,'filter')" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>{{'goto store details' | translate: lang}}</a>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+                            </div>			
+						</div>
+					</div><!--/recommended_items-->
+					
+				</div>
+			</div>
+		</div>
+	</section>
+    
+    
+
+
+
+
+
+
+
+
+
+
+<app-footer></app-footer>
+
+
+</body>
+</html>

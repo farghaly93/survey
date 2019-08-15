@@ -1,0 +1,50 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="assets/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  </head>
+<ul style="height:100%;margin-top:3px;background-color: rgb(107, 106, 106)" class="sidebar navbar-nav">
+    <li [style.background-color]="activated('dashboard', 'back')" class="nav-item active">
+      <a  class="nav-link" (click)="navigate('admin/dashboard')">
+        <i class="fas fa-home-lg-alt"></i>
+        <span [style.color]="activated('dashboard', 'color')" style="color:rgb(238, 232, 232)">Dashboard</span>
+      </a>
+    </li>
+    <li [style.background-color]="activated('categories','back')" class="nav-item dropdown">
+      <a  style="cursor:pointer" (click)="navigate('admin/categories')" class="nav-link dropdown-toggle" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-align-justify"></i>
+        <span [style.color]="activated('categories', 'color')" style="color:rgb(238, 232, 232)">Categories</span>
+      </a>
+    </li>
+    <li [style.background-color]="activated('addcategory', 'back')" class="nav-item">
+      <a  style="cursor:pointer"  (click)="navigate('admin/addcategory')" class="nav-link">
+        <i class="fa fa-plus"></i>
+        <span [style.color]="activated('addcategory', 'color')" style="color:rgb(238, 232, 232)">Add category</span></a>
+    </li>
+    <li [style.background-color]="activated('branches', 'back')"i class="nav-item">
+      <a  style="cursor:pointer" (click)="navigate('admin/branches')" class="nav-link">
+        <i class="fa fa-code-branch"></i>
+        <span [style.color]="activated('branches', 'color')" style="color:rgb(238, 232, 232)">Branches</span></a>
+    </li>
+    <li [style.background-color]="activated('ads', 'back')" class="nav-item">
+      <a  style="cursor:pointer"  (click)="navigate('admin/ads')" class="nav-link">
+        <i class="fa fa-ad"></i>
+        <span [style.color]="activated('ads', 'color')" style="color:rgb(238, 232, 232)">Advertisments</span></a>
+    </li>
+    <li [style.background-color]="activated('addAd', 'back')" class="nav-item">
+      <a  style="cursor:pointer" (click)="navigate('admin/addAd')" class="nav-link">
+        <i class="fa fa-adversal"></i>
+        <span [style.color]="activated('addAd', 'color')" style="color:rgb(238, 232, 232)">add Advertisment</span></a>
+    </li>
+    <li class="nav-item">
+        <a style="cursor:pointer" style="cursor:pointer" (click)="logout()" class="nav-link">
+          <i class="fa fa-sign-out"></i>
+          <span style="color:rgb(238, 232, 232)">Logout</span></a>
+      </li>
+  </ul>

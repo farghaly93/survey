@@ -1,0 +1,40 @@
+.storebtn {
+    margin:1px;
+    background-color: #f7fafc;
+    color:#858484;
+    width: 100%;
+    font-size: 15px;
+}
+.storebtn:hover {
+    text-decoration: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.card {
+    margin:5px;
+    background-color: #f3f1ef;
+    padding: 5px;
+}
+.card-img-top {
+    height:170px;
+}
+.search {
+    width: 100%;
+    margin-top:30px;
+    border-radius: 18px;
+    background-color: #f1f4f7;
+    text-align: center;
+    padding: 5px;
+    margin-left: 330px;
+}
+.search i {
+    font-size: 30px;
+}
+.search input {
+    border-radius: 18px;
+    background-color: #f6fafd;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+.card-title {
+    height:50px;
+}

@@ -1,0 +1,111 @@
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+      
+        <title>SB Admin - Dashboard</title>
+      
+        <!-- Custom fonts for this template-->
+        <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      
+        <!-- Page level plugin CSS-->
+        <link href="assets/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+      
+        <!-- Custom styles for this template-->
+        <link href="assets/css/sb-admin.css" rel="stylesheet">
+      
+      </head>
+      <app-header></app-header>
+      <body style="margin-top:170px;">
+      <div id="wrapper">
+    
+          <app-adminsidebar></app-adminsidebar>
+    
+        <div id="content-wrapper">
+    
+          <div class="container-fluid">
+    
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+              </li>
+              <li class="breadcrumb-item active">Overview</li>
+            </ol>
+<div class="container">
+    <h3 style="color:rgb(80, 70, 70)">Add branchs to: <i style="color:rgb(173, 46, 69)">{{store}}</i> in <i style="color: rgb(173, 46, 69)">{{cat}}</i></h3>
+                <form style="background-color: rgb(239, 242, 247)" class="text-center border border-light p-5" ngForm #b="ngForm" (submit)="addbranch(b)">
+                        <input *ngIf="str==='null'" (change)="changename(n)" #n="ngModel" class="form-control" type="text" ngModel name="store" [(ngModel)]="store" [placeholder]="store" required/>
+                        <div class="row">    
+                        <div class="col-md-4">
+                               <h3 class="type">Sections</h3>
+                                <div *ngFor="let sec of secs;let s=index">
+                                    <input autocomplete="off" (change)="getSectionList(d,s)" #d class="form-control" [attr.list]="'list'+s" type="text" ngModel [name]="'section'+(s+1)" [(ngModel)]="sections[s]" [placeholder]="sec" required/><br>
+                                    <datalist [id]="'list'+s">
+                                    <option *ngFor="let list of sectionsLists[s]">{{list}}</option>
+                                    </datalist>
+                                  </div>
+                                <br>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 class="type">Specifications</h3>
+                                <div *ngFor="let spec of specs;let sp=index">
+                                        <input class="form-control" type="text" ngModel [name]="'spec'+(sp+1)" [(ngModel)]="spec" [placeholder]="spec" required/><br>
+                                </div>
+                            </div>
+                        <br>
+                        <div class="col-md-4">
+                            <h3 class="type">Basic info & review</h3>
+                            <div>
+                               <input class="form-control" type="text" [(ngModel)]="phone" placeholder="phone" ngModel name="phone" /><br>
+                            </div>
+                            <div>
+                                <input class="form-control" type="text" [(ngModel)]="address" placeholder="address" ngModel name="address" /><br>
+                            </div>
+                            <div>
+                                <textarea class="form-control" ngModel [(ngModel)]="review" placeholder="review" name="review"></textarea>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div *ngIf="str === 'null'">
+                                <input (change)="onPhotoUpload($event)" required #f style="visibility:hidden"  type="file" >
+                                <img height="200px" (click)="f.click()" style="border-radius: 5px" [src]="imgPreview||'assets/imgs/placeholder.png'"/>
+                                <p style="color:rgb(124, 35, 24)" *ngIf="form.get('image').errors?.mimeTypeInvalid">Invalid image</p>
+                                <p *ngIf="form.get('image').pending">Loading image</p>
+                                <div class="row">
+                                    <small class="col-md-12">This is a new store</small>
+                                    <strong class="col-md-12">Upload store image</strong>
+                                </div>
+                                
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="button">
+                                <button class="btn btn-primary add">Add branch</button>
+                            </div>
+                          </div>
+                        </div>
+                        
+
+                 </form>
+                 <div *ngIf="done" class="alert alert-warning">
+                        <strong>Success!</strong> Branch added successfully.
+                 </div>
+
+                <agm-map  [usePanning]='true' [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="getLocation($event)">
+                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                </agm-map>
+</div>
+
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCna7uhO_7jETlatBZhHcwNGTIxVe7h7pE&callback=initMap"
+  type="text/javascript"></script>
+
+</div>
+</div>
+</div>
+</body>
