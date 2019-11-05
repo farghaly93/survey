@@ -42,7 +42,7 @@
     "jsonwebtoken": "^8.5.1",
     "macaddress": "^0.2.9",
     "material": "^0.3.13",
-    "mongoose": "^5.6.0",
+    "mongoose": "^5.7.5",
     "multer": "^1.4.1",
     "ngx-bootstrap": "^5.1.0",
     "nodemon": "^1.19.1",
