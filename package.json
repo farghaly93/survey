@@ -38,7 +38,7 @@
     "font-awesome": "^4.7.0",
     "google-translate-api": "^2.3.0",
     "hammerjs": "^2.0.8",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jsonwebtoken": "^8.5.1",
     "macaddress": "^0.2.9",
     "material": "^0.3.13",
