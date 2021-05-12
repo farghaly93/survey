@@ -30,7 +30,7 @@
     "bootstrap": "^4.3.1",
     "canvas": "^2.5.0",
     "canvasjs": "^1.8.1",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "express": "^4.17.1",
     "express-sanitizer": "^1.0.5",
     "express-session": "^1.16.2",
